@@ -18,10 +18,11 @@ import javax.ws.rs.core.MediaType;
 
 import org.tutorial.rest.model.Task;
 import org.tutorial.rest.model.Task.Status;
+import org.tutorial.rest.model.TaskStatusResponse;
 
 
 /**
- * @author H158574
+ * @author Chejerla Karthik
  *
  */
 @Path("/taskservice/")
@@ -39,16 +40,19 @@ public class TaskService {
 		listOfTasks.put(2, jmoTask);
 	}
 	
-	@POST
+	@GET
 	@Path("/tasks/{taskname}")
-	public String getTaskStatus(@PathParam("taskname") Integer taskId) {
-		String returnStatus = "";
-		try {
-			returnStatus = listOfTasks.get(taskId).getTaskStatus().toString();
-		} catch (Exception e) {
-			returnStatus = "ERROR!!!";
+	public TaskStatusResponse getTaskStatus(@PathParam("taskname") Integer taskId) {
+		TaskStatusResponse response = new TaskStatusResponse();
+		Task requestedTask;
+		if (!((requestedTask = listOfTasks.get(taskId)) == null)) {
+			response.setTask(requestedTask);
+			response.setMessage("Task found and returned!!");
+		} else {
+			response.setTask(null);
+			response.setMessage("Task not found. Please check your request!!");
 		}
-		return returnStatus;
+		return response;
 	}
 	
 	@GET
@@ -59,5 +63,18 @@ public class TaskService {
 			returnList.add(entry.getValue());
 		}
 		return returnList;
+	}
+	
+	@POST
+	@Path("/tasks")
+	public TaskStatusResponse addNewTask(Task newTask){
+		TaskStatusResponse response = new TaskStatusResponse();
+		
+		int size = listOfTasks.size();
+		listOfTasks.put(size+1, newTask);
+		
+		response.setTask(newTask);
+		response.setMessage("New task has been saved");
+		return response;
 	}
 }
