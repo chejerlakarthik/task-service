@@ -113,6 +113,7 @@
 						<url>http://127.0.0.1:8080/manager/text</url>
 						<server>tomcat7</server>
 						<path>/task-service</path>
+						<update>true</update>
 					</configuration>
 				</plugin>
 			</plugins>
