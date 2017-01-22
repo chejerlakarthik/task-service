@@ -12,13 +12,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="UserTask")
 public class Task {
 	
-	public enum Status {
+	public enum TaskStatus {
 		NOT_STARTED, IN_PROGRESS, COMPLETED, DEFERED, OVERDUE
 	}
 	
 	private String taskName;
 	private String taskOwner;
-	private Status taskStatus;
+	private TaskStatus taskStatus;
 	
 	public Task(){
 		//No-args constructor
@@ -27,7 +27,7 @@ public class Task {
 	/**
 	 * Parameterized Constructor 
 	 */
-	public Task(String taskName, String taskOwner, Status taskStatus){
+	public Task(String taskName, String taskOwner, TaskStatus taskStatus){
 		this.taskName = taskName;
 		this.taskOwner = taskOwner;
 		this.taskStatus = taskStatus;
@@ -49,11 +49,11 @@ public class Task {
 		this.taskOwner = taskOwner;
 	}
 	
-	public Status getTaskStatus() {
+	public TaskStatus getTaskStatus() {
 		return taskStatus;
 	}
 	
-	public void setTaskStatus(Status taskStatus) {
+	public void setTaskStatus(TaskStatus taskStatus) {
 		this.taskStatus = taskStatus;
 	}
 }
